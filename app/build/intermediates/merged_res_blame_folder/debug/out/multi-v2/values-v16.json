@@ -1,0 +1,19 @@
+{
+    "logs": [
+        {
+            "outputFile": "com.tuapp.chatllm.app-mergeDebugResources-3:/values-v16/values-v16.xml",
+            "map": [
+                {
+                    "source": "C:\\Users\\juan_\\.gradle\\caches\\9.3.0\\transforms\\a3d047c72e9fd19ed0de56f21aac4794\\workspace\\transformed\\core-1.12.0\\res\\values-v16\\values-v16.xml",
+                    "from": {
+                        "startLines": "2",
+                        "startColumns": "4",
+                        "startOffsets": "55",
+                        "endColumns": "65",
+                        "endOffsets": "116"
+                    }
+                }
+            ]
+        }
+    ]
+}

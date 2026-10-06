@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Emerald & Mint Green Palette (From Reference Image) -->
+    <color name="mint_primary">#00D27F</color>
+    <color name="mint_primary_dark">#00BFA5</color>
+    <color name="mint_header">#02C39A</color>
+    <color name="mint_light_container">#E6F8F3</color>
+    <color name="mint_soft_bg">#F2FAF7</color>
+
+    <!-- Blue Icon Block Palette (From Reference Image) -->
+    <color name="blue_icon_bg">#448AFF</color>
+    <color name="blue_icon_light">#E3F2FD</color>
+    <color name="blue_primary">#1565C0</color>
+
+    <!-- Accent Gold -->
+    <color name="gold_accent">#FFB300</color>
+    <color name="gold_container">#FFF8E1</color>
+
+    <!-- Status Badges -->
+    <color name="active_green">#00A86B</color>
+    <color name="active_green_container">#D4F7E6</color>
+    <color name="inactive_gray">#616161</color>
+    <color name="inactive_gray_container">#F0F0F0</color>
+
+    <!-- Surfaces -->
+    <color name="surface_card">#FFFFFF</color>
+    <color name="text_dark">#122620</color>
+    <color name="text_muted">#5B7065</color>
+    <color name="black">#FF000000</color>
+    <color name="white">#FFFFFFFF</color>
+</resources>

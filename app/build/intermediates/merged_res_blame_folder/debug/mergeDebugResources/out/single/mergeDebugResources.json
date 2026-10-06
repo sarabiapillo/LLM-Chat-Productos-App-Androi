@@ -1,0 +1,38 @@
+[
+    {
+        "merged": "com.tuapp.chatllm.app-debug-5:/mipmap-anydpi-v26_ic_launcher.xml.flat",
+        "source": "com.tuapp.chatllm.app-main-7:/mipmap-anydpi-v26/ic_launcher.xml"
+    },
+    {
+        "merged": "com.tuapp.chatllm.app-debug-5:/mipmap_ic_launcher.xml.flat",
+        "source": "com.tuapp.chatllm.app-main-7:/mipmap/ic_launcher.xml"
+    },
+    {
+        "merged": "com.tuapp.chatllm.app-debug-5:/xml_data_extraction_rules.xml.flat",
+        "source": "com.tuapp.chatllm.app-main-7:/xml/data_extraction_rules.xml"
+    },
+    {
+        "merged": "com.tuapp.chatllm.app-debug-5:/xml_backup_rules.xml.flat",
+        "source": "com.tuapp.chatllm.app-main-7:/xml/backup_rules.xml"
+    },
+    {
+        "merged": "com.tuapp.chatllm.app-debug-5:/mipmap_ic_launcher_round.xml.flat",
+        "source": "com.tuapp.chatllm.app-main-7:/mipmap/ic_launcher_round.xml"
+    },
+    {
+        "merged": "com.tuapp.chatllm.app-debug-5:/drawable_ic_launcher_foreground.xml.flat",
+        "source": "com.tuapp.chatllm.app-main-7:/drawable/ic_launcher_foreground.xml"
+    },
+    {
+        "merged": "com.tuapp.chatllm.app-debug-5:/drawable_ic_app_logo.xml.flat",
+        "source": "com.tuapp.chatllm.app-main-7:/drawable/ic_app_logo.xml"
+    },
+    {
+        "merged": "com.tuapp.chatllm.app-debug-5:/mipmap-anydpi-v26_ic_launcher_round.xml.flat",
+        "source": "com.tuapp.chatllm.app-main-7:/mipmap-anydpi-v26/ic_launcher_round.xml"
+    },
+    {
+        "merged": "com.tuapp.chatllm.app-debug-5:/drawable_ic_launcher_background.xml.flat",
+        "source": "com.tuapp.chatllm.app-main-7:/drawable/ic_launcher_background.xml"
+    }
+]

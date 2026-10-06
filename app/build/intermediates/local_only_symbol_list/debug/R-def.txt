@@ -1,0 +1,36 @@
+R_DEF: Internal format may change without notice
+local
+color black
+color purple_200
+color purple_500
+color purple_700
+color teal_200
+color teal_700
+color white
+string admin_active_switch
+string admin_add_content
+string admin_add_title
+string admin_delete
+string admin_save_button
+string admin_saved_contexts
+string admin_status_active
+string admin_status_inactive
+string admin_title
+string app_name
+string chat_active_contexts
+string chat_clear_history
+string chat_no_active_contexts
+string chat_placeholder
+string chat_send
+string chat_title
+string gcm_defaultSenderId
+string google_api_key
+string google_app_id
+string google_crash_reporting_api_key
+string google_storage_bucket
+string nav_admin
+string nav_chat
+string project_id
+style Theme.ChatLLMApp
+xml backup_rules
+xml data_extraction_rules

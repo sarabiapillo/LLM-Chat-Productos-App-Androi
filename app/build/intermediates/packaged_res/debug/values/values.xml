@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="black">#FF000000</color>
+    <color name="purple_200">#FFBB86FC</color>
+    <color name="purple_500">#FF6200EE</color>
+    <color name="purple_700">#FF3700B3</color>
+    <color name="teal_200">#FF03DAC5</color>
+    <color name="teal_700">#FF018786</color>
+    <color name="white">#FFFFFFFF</color>
+    <string name="admin_active_switch">Activar para respuestas del Chat</string>
+    <string name="admin_add_content">Contenido / Instrucción para el LLM</string>
+    <string name="admin_add_title">Título del Prompt / Contexto</string>
+    <string name="admin_delete">Eliminar</string>
+    <string name="admin_save_button">Guardar Contexto</string>
+    <string name="admin_saved_contexts">Contextos Guardados</string>
+    <string name="admin_status_active">Activo</string>
+    <string name="admin_status_inactive">Inactivo</string>
+    <string name="admin_title">Gestión de Contextos y Prompts</string>
+    <string name="app_name">ChatLLM</string>
+    <string name="chat_active_contexts">Contextos de instrucción activos:</string>
+    <string name="chat_clear_history">Limpiar Chat</string>
+    <string name="chat_no_active_contexts">Sin contextos de instrucción activos</string>
+    <string name="chat_placeholder">Escribe un mensaje para la IA...</string>
+    <string name="chat_send">Enviar</string>
+    <string name="chat_title">Asistente IA ChatLLM</string>
+    <string name="gcm_defaultSenderId" translatable="false">123456789012</string>
+    <string name="google_api_key" translatable="false">AIzaSyDummyKeyForDevelopment123456</string>
+    <string name="google_app_id" translatable="false">1:123456789012:android:abcdef1234567890</string>
+    <string name="google_crash_reporting_api_key" translatable="false">AIzaSyDummyKeyForDevelopment123456</string>
+    <string name="google_storage_bucket" translatable="false">chatllm-android-dev.appspot.com</string>
+    <string name="nav_admin">Admin Contextos</string>
+    <string name="nav_chat">Chat</string>
+    <string name="project_id" translatable="false">chatllm-android-dev</string>
+    <style name="Theme.ChatLLMApp" parent="android:Theme.Material.Light.NoActionBar">
+        <item name="android:statusBarColor">@color/purple_700</item>
+    </style>
+</resources>

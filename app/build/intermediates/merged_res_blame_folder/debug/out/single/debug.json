@@ -1,0 +1,10 @@
+[
+    {
+        "merged": "com.tuapp.chatllm.app-merged_res-5:/xml_data_extraction_rules.xml.flat",
+        "source": "com.tuapp.chatllm.app-main-7:/xml/data_extraction_rules.xml"
+    },
+    {
+        "merged": "com.tuapp.chatllm.app-merged_res-5:/xml_backup_rules.xml.flat",
+        "source": "com.tuapp.chatllm.app-main-7:/xml/backup_rules.xml"
+    }
+]
