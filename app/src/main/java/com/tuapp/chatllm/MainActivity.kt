@@ -26,6 +26,7 @@ import com.tuapp.chatllm.data.UserRole
 import com.tuapp.chatllm.ui.AdminScreen
 import com.tuapp.chatllm.ui.AuthScreen
 import com.tuapp.chatllm.ui.ChatScreen
+import com.tuapp.chatllm.ui.SplashScreen
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -53,81 +54,96 @@ fun AppNavigation(repository: ContextRepository) {
     val currentRoute = navBackStackEntry?.destination?.route
 
     var currentUser by remember { mutableStateOf<UserAccount?>(null) }
+    var isSplashFinished by remember { mutableStateOf(false) }
 
     Scaffold(
         topBar = {
-            CenterAlignedTopAppBar(
-                title = {
-                    Row(verticalAlignment = Alignment.CenterVertically) {
-                        Image(
-                            painter = painterResource(id = R.drawable.ic_app_logo),
-                            contentDescription = null,
-                            modifier = Modifier.size(32.dp)
-                        )
-                        Spacer(modifier = Modifier.width(8.dp))
-                        Text(
-                            text = stringResource(R.string.app_name),
-                            style = MaterialTheme.typography.titleMedium,
-                            fontWeight = FontWeight.Bold,
-                            color = MaterialTheme.colorScheme.onPrimaryContainer
-                        )
-                    }
-                },
-                colors = TopAppBarDefaults.centerAlignedTopAppBarColors(
-                    containerColor = MaterialTheme.colorScheme.primaryContainer
+            if (isSplashFinished) {
+                CenterAlignedTopAppBar(
+                    title = {
+                        Row(verticalAlignment = Alignment.CenterVertically) {
+                            Image(
+                                painter = painterResource(id = R.drawable.ic_app_logo),
+                                contentDescription = null,
+                                modifier = Modifier.size(32.dp)
+                            )
+                            Spacer(modifier = Modifier.width(8.dp))
+                            Text(
+                                text = stringResource(R.string.app_name),
+                                style = MaterialTheme.typography.titleMedium,
+                                fontWeight = FontWeight.Bold,
+                                color = MaterialTheme.colorScheme.onPrimaryContainer
+                            )
+                        }
+                    },
+                    colors = TopAppBarDefaults.centerAlignedTopAppBarColors(
+                        containerColor = MaterialTheme.colorScheme.primaryContainer
+                    )
                 )
-            )
+            }
         },
         bottomBar = {
-            NavigationBar {
-                NavigationBarItem(
-                    icon = { Icon(Icons.Default.Send, contentDescription = null) },
-                    label = { Text(stringResource(R.string.nav_chat)) },
-                    selected = currentRoute == "chat",
-                    onClick = {
-                        if (currentRoute != "chat") {
-                            navController.navigate("chat") {
-                                popUpTo(navController.graph.findStartDestination().id) {
-                                    saveState = true
+            if (isSplashFinished) {
+                NavigationBar {
+                    NavigationBarItem(
+                        icon = { Icon(Icons.Default.Send, contentDescription = null) },
+                        label = { Text(stringResource(R.string.nav_chat)) },
+                        selected = currentRoute == "chat",
+                        onClick = {
+                            if (currentRoute != "chat") {
+                                navController.navigate("chat") {
+                                    popUpTo(navController.graph.findStartDestination().id) {
+                                        saveState = true
+                                    }
+                                    launchSingleTop = true
+                                    restoreState = true
                                 }
-                                launchSingleTop = true
-                                restoreState = true
                             }
                         }
-                    }
-                )
-                NavigationBarItem(
-                    icon = { Icon(Icons.Default.Person, contentDescription = null) },
-                    label = {
-                        Text(
-                            when (currentUser?.role) {
-                                UserRole.ADMIN -> stringResource(R.string.nav_admin)
-                                UserRole.CLIENT -> stringResource(R.string.nav_account)
-                                else -> stringResource(R.string.nav_account)
-                            }
-                        )
-                    },
-                    selected = currentRoute == "account",
-                    onClick = {
-                        if (currentRoute != "account") {
-                            navController.navigate("account") {
-                                popUpTo(navController.graph.findStartDestination().id) {
-                                    saveState = true
+                    )
+                    NavigationBarItem(
+                        icon = { Icon(Icons.Default.Person, contentDescription = null) },
+                        label = {
+                            Text(
+                                when (currentUser?.role) {
+                                    UserRole.ADMIN -> stringResource(R.string.nav_admin)
+                                    UserRole.CLIENT -> stringResource(R.string.nav_account)
+                                    else -> stringResource(R.string.nav_account)
                                 }
-                                launchSingleTop = true
-                                restoreState = true
+                            )
+                        },
+                        selected = currentRoute == "account",
+                        onClick = {
+                            if (currentRoute != "account") {
+                                navController.navigate("account") {
+                                    popUpTo(navController.graph.findStartDestination().id) {
+                                        saveState = true
+                                    }
+                                    launchSingleTop = true
+                                    restoreState = true
+                                }
                             }
                         }
-                    }
-                )
+                    )
+                }
             }
         }
     ) { paddingValues ->
         NavHost(
             navController = navController,
-            startDestination = "chat",
+            startDestination = "splash",
             modifier = Modifier.padding(paddingValues)
         ) {
+            composable("splash") {
+                SplashScreen(
+                    onSplashFinished = {
+                        isSplashFinished = true
+                        navController.navigate("chat") {
+                            popUpTo("splash") { inclusive = true }
+                        }
+                    }
+                )
+            }
             composable("chat") {
                 ChatScreen(
                     repository = repository,
