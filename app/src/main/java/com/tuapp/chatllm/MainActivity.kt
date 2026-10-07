@@ -147,7 +147,6 @@ fun AppNavigation(repository: ContextRepository) {
                 val user = currentUser
                 if (user == null) {
                     AuthScreen(
-                        repository = repository,
                         onAuthSuccess = { authenticatedUser ->
                             currentUser = authenticatedUser
                             if (authenticatedUser.role == UserRole.CLIENT) {
