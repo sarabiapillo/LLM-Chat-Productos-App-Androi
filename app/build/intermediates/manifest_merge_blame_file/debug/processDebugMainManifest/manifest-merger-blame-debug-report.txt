@@ -71,8 +71,8 @@
 43-->C:\Users\juan_\.gemini\antigravity-ide\scratch\var\www\chatLLMAndroi\app\src\main\AndroidManifest.xml:25:13-41
 44            android:exported="true"
 44-->C:\Users\juan_\.gemini\antigravity-ide\scratch\var\www\chatLLMAndroi\app\src\main\AndroidManifest.xml:26:13-36
-45            android:theme="@style/Theme.App.Starting" >
-45-->C:\Users\juan_\.gemini\antigravity-ide\scratch\var\www\chatLLMAndroi\app\src\main\AndroidManifest.xml:27:13-54
+45            android:theme="@style/Theme.ChatLLMApp" >
+45-->C:\Users\juan_\.gemini\antigravity-ide\scratch\var\www\chatLLMAndroi\app\src\main\AndroidManifest.xml:27:13-52
 46            <intent-filter>
 46-->C:\Users\juan_\.gemini\antigravity-ide\scratch\var\www\chatLLMAndroi\app\src\main\AndroidManifest.xml:28:13-31:29
 47                <action android:name="android.intent.action.MAIN" />
