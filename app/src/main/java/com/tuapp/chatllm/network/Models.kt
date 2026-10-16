@@ -50,7 +50,7 @@ data class RegisterRequest(
     val name: String,
     val email: String,
     val password: String,
-    @SerializedName("password_confirmation") val passwordConfirmation: String
+    val password_confirmation: String
 )
 
 data class RegisterResponse(

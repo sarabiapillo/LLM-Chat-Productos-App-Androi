@@ -38,7 +38,7 @@ class AuthRepository {
                 if (response.isSuccessful && response.body() != null) {
                     NetworkResult.Success(response.body()!!)
                 } else {
-                    NetworkResult.Error("Error al registrar: ${response.message()}", response.code())
+                    NetworkResult.Error("Error al registrar: ${response.code()} ${response.errorBody()?.string()}", response.code())
                 }
             } catch (e: Exception) {
                 NetworkResult.Error("Error de conexión: ${e.message}")

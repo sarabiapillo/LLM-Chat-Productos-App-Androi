@@ -1,4 +1,4 @@
-#Fri Oct 16 12:33:28 CST 2026
+#Fri Oct 16 12:45:58 CST 2026
 base.0=C\:\\Users\\juan_\\.gemini\\antigravity-ide\\scratch\\var\\www\\chatLLMAndroi\\app\\build\\intermediates\\dex\\debug\\mergeExtDexDebug\\classes.dex
 base.1=C\:\\Users\\juan_\\.gemini\\antigravity-ide\\scratch\\var\\www\\chatLLMAndroi\\app\\build\\intermediates\\dex\\debug\\mergeProjectDexDebug\\0\\classes.dex
 base.2=C\:\\Users\\juan_\\.gemini\\antigravity-ide\\scratch\\var\\www\\chatLLMAndroi\\app\\build\\intermediates\\dex\\debug\\mergeProjectDexDebug\\10\\classes.dex
