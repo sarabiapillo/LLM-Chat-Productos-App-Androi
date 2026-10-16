@@ -85,6 +85,14 @@
     <string name="nav_admin">Admin Panel</string>
     <string name="nav_chat">Chat Cliente</string>
     <string name="project_id" translatable="false">chatllm-android-dev</string>
+    <style name="Theme.App.Starting" parent="Theme.SplashScreen">
+        
+        <item name="windowSplashScreenBackground">#FFFFFF</item>
+        
+        <item name="windowSplashScreenAnimatedIcon">@drawable/ic_app_logo</item>
+        
+        <item name="postSplashScreenTheme">@style/Theme.ChatLLMApp</item>
+    </style>
     <style name="Theme.ChatLLMApp" parent="android:Theme.Material.Light.NoActionBar">
         <item name="android:statusBarColor">@color/mint_header</item>
         <item name="android:navigationBarColor">@color/mint_soft_bg</item>

@@ -22,6 +22,7 @@ color white
 drawable ic_app_logo
 drawable ic_launcher_background
 drawable ic_launcher_foreground
+drawable ic_splash_icon
 mipmap ic_launcher
 mipmap ic_launcher_round
 string admin_active_switch
@@ -90,6 +91,7 @@ string nav_account
 string nav_admin
 string nav_chat
 string project_id
+style Theme.App.Starting
 style Theme.ChatLLMApp
 xml backup_rules
 xml data_extraction_rules

@@ -28,8 +28,11 @@ import com.tuapp.chatllm.ui.AuthScreen
 import com.tuapp.chatllm.ui.ChatScreen
 import com.tuapp.chatllm.ui.SplashScreen
 
+import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
+
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
+        installSplashScreen()
         super.onCreate(savedInstanceState)
         val repository = ContextRepository()
 

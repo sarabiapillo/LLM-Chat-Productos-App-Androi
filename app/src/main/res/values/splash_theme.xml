@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Theme para el Splash Screen Nativo -->
+    <style name="Theme.App.Starting" parent="Theme.SplashScreen">
+        <!-- Color de fondo del Splash Screen nativo -->
+        <item name="windowSplashScreenBackground">#FFFFFF</item>
+        <!-- Icono Animado que aparecerá en el centro (usamos tu propio logo vectorial) -->
+        <item name="windowSplashScreenAnimatedIcon">@drawable/ic_app_logo</item>
+        <!-- Una vez que termine el Splash, pasamos al Theme principal de la app -->
+        <item name="postSplashScreenTheme">@style/Theme.ChatLLMApp</item>
+    </style>
+</resources>

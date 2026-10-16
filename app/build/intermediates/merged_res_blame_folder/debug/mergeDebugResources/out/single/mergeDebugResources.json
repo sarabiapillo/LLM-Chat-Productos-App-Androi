@@ -4,6 +4,10 @@
         "source": "com.tuapp.chatllm.app-main-7:/mipmap-anydpi-v26/ic_launcher.xml"
     },
     {
+        "merged": "com.tuapp.chatllm.app-debug-5:/drawable_ic_splash_icon.xml.flat",
+        "source": "com.tuapp.chatllm.app-main-7:/drawable/ic_splash_icon.xml"
+    },
+    {
         "merged": "com.tuapp.chatllm.app-debug-5:/mipmap_ic_launcher.xml.flat",
         "source": "com.tuapp.chatllm.app-main-7:/mipmap/ic_launcher.xml"
     },

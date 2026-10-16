@@ -38,12 +38,11 @@
         android:label="@string/app_name"
         android:roundIcon="@drawable/ic_launcher_foreground"
         android:supportsRtl="true"
-        android:testOnly="true"
         android:theme="@style/Theme.ChatLLMApp" >
         <activity
             android:name="com.tuapp.chatllm.MainActivity"
             android:exported="true"
-            android:theme="@style/Theme.ChatLLMApp" >
+            android:theme="@style/Theme.App.Starting" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
