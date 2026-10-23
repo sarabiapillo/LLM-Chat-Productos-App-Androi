@@ -15,7 +15,13 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
-import androidx.compose.ui.res.colorResource
+import androidx.compose.animation.AnimatedVisibility
+import androidx.compose.animation.expandVertically
+import androidx.compose.animation.fadeIn
+import androidx.compose.animation.fadeOut
+import androidx.compose.animation.shrinkVertically
+import androidx.compose.foundation.Image
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
@@ -137,7 +143,8 @@ fun AuthScreen(
             modifier = Modifier
                 .fillMaxWidth()
                 .widthIn(max = 420.dp),
-            shape = RoundedCornerShape(24.dp),
+            shape = RoundedCornerShape(32.dp),
+            elevation = CardDefaults.cardElevation(defaultElevation = 8.dp),
             colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.surface)
         ) {
             Column(
@@ -251,20 +258,26 @@ fun AuthScreen(
                         Text(stringResource(R.string.auth_2fa_resend))
                     }
                 } else {
-                    Surface(
-                        shape = RoundedCornerShape(16.dp),
-                        color = MaterialTheme.colorScheme.primaryContainer,
-                        modifier = Modifier.size(56.dp)
-                    ) {
-                        Box(contentAlignment = Alignment.Center) {
-                            Icon(
-                                imageVector = Icons.Default.Lock,
-                                contentDescription = null,
-                                tint = MaterialTheme.colorScheme.onPrimaryContainer,
-                                modifier = Modifier.size(28.dp)
-                            )
-                        }
-                    }
+                    Image(
+                        painter = painterResource(id = R.drawable.ic_app_logo),
+                        contentDescription = "App Logo",
+                        modifier = Modifier
+                            .size(72.dp)
+                            .padding(bottom = 8.dp)
+                    )
+                    
+                    Text(
+                        text = "Bienvenido a ChatLLM",
+                        style = MaterialTheme.typography.titleLarge,
+                        fontWeight = FontWeight.Bold,
+                        color = MaterialTheme.colorScheme.primary
+                    )
+                    
+                    Text(
+                        text = "Suite SaaS e Inteligencia Artificial",
+                        style = MaterialTheme.typography.bodySmall,
+                        color = MaterialTheme.colorScheme.onSurfaceVariant
+                    )
 
                     Spacer(modifier = Modifier.height(16.dp))
 
@@ -293,33 +306,40 @@ fun AuthScreen(
 
                     Spacer(modifier = Modifier.height(20.dp))
 
-                    if (isRegisterMode) {
-                        OutlinedTextField(
-                            value = name,
-                            onValueChange = {
-                                name = it
-                                errorMessage = null
-                            },
-                            label = { Text("Nombre Completo") },
-                            leadingIcon = { Icon(Icons.Default.Person, contentDescription = null) },
-                            singleLine = true,
-                            modifier = Modifier.fillMaxWidth(),
-                            enabled = !isLoading,
-                            colors = OutlinedTextFieldDefaults.colors(
-                                focusedContainerColor = Color(0xFFFFFFFF), // Blanco puro garantizado
-                                unfocusedContainerColor = Color(0xFFFFFFFF), // Blanco puro garantizado
-                                focusedTextColor = Color(0xFF0D47A1), // Texto Azul Oscuro
-                                unfocusedTextColor = Color(0xFF0D47A1), // Texto Azul Oscuro
-                                cursorColor = Color(0xFFFFC107), // Cursor Dorado
-                                focusedBorderColor = Color(0xFFFFC107), // Borde Dorado al enfocar
-                                unfocusedBorderColor = Color(0xFF1976D2), // Borde Azul al desenfocar
-                                focusedLabelColor = Color(0xFF0D47A1), // Etiqueta Azul
-                                unfocusedLabelColor = Color(0xFF1976D2), // Etiqueta Azul clara
-                                focusedLeadingIconColor = Color(0xFFFFC107), // Icono Dorado
-                                unfocusedLeadingIconColor = Color(0xFF1976D2) // Icono Azul
+                    AnimatedVisibility(
+                        visible = isRegisterMode,
+                        enter = fadeIn() + expandVertically(),
+                        exit = fadeOut() + shrinkVertically()
+                    ) {
+                        Column {
+                            OutlinedTextField(
+                                value = name,
+                                onValueChange = {
+                                    name = it
+                                    errorMessage = null
+                                },
+                                label = { Text("Nombre Completo") },
+                                leadingIcon = { Icon(Icons.Default.Person, contentDescription = null) },
+                                singleLine = true,
+                                shape = RoundedCornerShape(16.dp),
+                                modifier = Modifier.fillMaxWidth(),
+                                enabled = !isLoading,
+                                colors = OutlinedTextFieldDefaults.colors(
+                                    focusedContainerColor = Color(0xFFFFFFFF),
+                                    unfocusedContainerColor = Color(0xFFFFFFFF),
+                                    focusedTextColor = Color(0xFF0D47A1),
+                                    unfocusedTextColor = Color(0xFF0D47A1),
+                                    cursorColor = Color(0xFFFFC107),
+                                    focusedBorderColor = Color(0xFFFFC107),
+                                    unfocusedBorderColor = Color(0xFF1976D2),
+                                    focusedLabelColor = Color(0xFF0D47A1),
+                                    unfocusedLabelColor = Color(0xFF1976D2),
+                                    focusedLeadingIconColor = Color(0xFFFFC107),
+                                    unfocusedLeadingIconColor = Color(0xFF1976D2)
+                                )
                             )
-                        )
-                        Spacer(modifier = Modifier.height(12.dp))
+                            Spacer(modifier = Modifier.height(12.dp))
+                        }
                     }
 
                     OutlinedTextField(
@@ -331,6 +351,7 @@ fun AuthScreen(
                         label = { Text(stringResource(R.string.auth_email_label)) },
                         leadingIcon = { Icon(Icons.Default.Person, contentDescription = null) },
                         singleLine = true,
+                        shape = RoundedCornerShape(16.dp),
                         modifier = Modifier.fillMaxWidth(),
                         enabled = !isLoading,
                         colors = OutlinedTextFieldDefaults.colors(
@@ -361,6 +382,7 @@ fun AuthScreen(
                         visualTransformation = PasswordVisualTransformation(),
                         keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Password),
                         singleLine = true,
+                        shape = RoundedCornerShape(16.dp),
                         modifier = Modifier.fillMaxWidth(),
                         enabled = !isLoading,
                         colors = OutlinedTextFieldDefaults.colors(
@@ -378,36 +400,43 @@ fun AuthScreen(
                         )
                     )
 
-                    if (isRegisterMode) {
-                        Spacer(modifier = Modifier.height(12.dp))
+                    AnimatedVisibility(
+                        visible = isRegisterMode,
+                        enter = fadeIn() + expandVertically(),
+                        exit = fadeOut() + shrinkVertically()
+                    ) {
+                        Column {
+                            Spacer(modifier = Modifier.height(12.dp))
 
-                        OutlinedTextField(
-                            value = confirmPassword,
-                            onValueChange = {
-                                confirmPassword = it
-                                errorMessage = null
-                            },
-                            label = { Text(stringResource(R.string.auth_confirm_password_label)) },
-                            leadingIcon = { Icon(Icons.Default.Lock, contentDescription = null) },
-                            visualTransformation = PasswordVisualTransformation(),
-                            keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Password),
-                            singleLine = true,
-                            modifier = Modifier.fillMaxWidth(),
-                            enabled = !isLoading,
-                            colors = OutlinedTextFieldDefaults.colors(
-                                focusedContainerColor = Color(0xFFFFFFFF), // Blanco puro garantizado
-                                unfocusedContainerColor = Color(0xFFFFFFFF), // Blanco puro garantizado
-                                focusedTextColor = Color(0xFF0D47A1), // Texto Azul Oscuro
-                                unfocusedTextColor = Color(0xFF0D47A1), // Texto Azul Oscuro
-                                cursorColor = Color(0xFFFFC107), // Cursor Dorado
-                                focusedBorderColor = Color(0xFFFFC107), // Borde Dorado al enfocar
-                                unfocusedBorderColor = Color(0xFF1976D2), // Borde Azul al desenfocar
-                                focusedLabelColor = Color(0xFF0D47A1), // Etiqueta Azul
-                                unfocusedLabelColor = Color(0xFF1976D2), // Etiqueta Azul clara
-                                focusedLeadingIconColor = Color(0xFFFFC107), // Icono Dorado
-                                unfocusedLeadingIconColor = Color(0xFF1976D2) // Icono Azul
+                            OutlinedTextField(
+                                value = confirmPassword,
+                                onValueChange = {
+                                    confirmPassword = it
+                                    errorMessage = null
+                                },
+                                label = { Text(stringResource(R.string.auth_confirm_password_label)) },
+                                leadingIcon = { Icon(Icons.Default.Lock, contentDescription = null) },
+                                visualTransformation = PasswordVisualTransformation(),
+                                keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Password),
+                                singleLine = true,
+                                shape = RoundedCornerShape(16.dp),
+                                modifier = Modifier.fillMaxWidth(),
+                                enabled = !isLoading,
+                                colors = OutlinedTextFieldDefaults.colors(
+                                    focusedContainerColor = Color(0xFFFFFFFF),
+                                    unfocusedContainerColor = Color(0xFFFFFFFF),
+                                    focusedTextColor = Color(0xFF0D47A1),
+                                    unfocusedTextColor = Color(0xFF0D47A1),
+                                    cursorColor = Color(0xFFFFC107),
+                                    focusedBorderColor = Color(0xFFFFC107),
+                                    unfocusedBorderColor = Color(0xFF1976D2),
+                                    focusedLabelColor = Color(0xFF0D47A1),
+                                    unfocusedLabelColor = Color(0xFF1976D2),
+                                    focusedLeadingIconColor = Color(0xFFFFC107),
+                                    unfocusedLeadingIconColor = Color(0xFF1976D2)
+                                )
                             )
-                        )
+                        }
                     }
 
                     if (errorMessage != null) {
@@ -441,7 +470,8 @@ fun AuthScreen(
                         },
                         modifier = Modifier
                             .fillMaxWidth()
-                            .height(48.dp),
+                            .height(56.dp),
+                        shape = RoundedCornerShape(16.dp),
                         enabled = !isLoading
                     ) {
                         if (isLoading) {
