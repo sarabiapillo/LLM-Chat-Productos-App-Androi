@@ -4,7 +4,7 @@
             "outputFile": "com.tuapp.chatllm.app-mergeDebugResources-3:/values-v31/values-v31.xml",
             "map": [
                 {
-                    "source": "C:\\Users\\juan_\\.gradle\\caches\\9.2.0\\transforms\\74bc04500779e66715877ba6c9dd4157\\workspace\\transformed\\core-splashscreen-1.0.1\\res\\values-v31\\values-v31.xml",
+                    "source": "C:\\Users\\juan_\\.gradle\\caches\\9.2.0\\transforms\\7701bf8f063a74b291fc6403bd021dfd\\workspace\\transformed\\core-splashscreen-1.0.1\\res\\values-v31\\values-v31.xml",
                     "from": {
                         "startLines": "2,9",
                         "startColumns": "4,4",

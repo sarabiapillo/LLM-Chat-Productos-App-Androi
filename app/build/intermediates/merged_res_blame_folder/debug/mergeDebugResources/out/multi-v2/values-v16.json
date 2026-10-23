@@ -4,7 +4,17 @@
             "outputFile": "com.tuapp.chatllm.app-mergeDebugResources-3:/values-v16/values-v16.xml",
             "map": [
                 {
-                    "source": "C:\\Users\\juan_\\.gradle\\caches\\9.2.0\\transforms\\5f373b0828cb402c0c483d83c384e6ea\\workspace\\transformed\\appcompat-1.6.1\\res\\values-v16\\values-v16.xml",
+                    "source": "C:\\Users\\juan_\\.gradle\\caches\\9.2.0\\transforms\\1d262d5421b92a1d9e4959f8c208b690\\workspace\\transformed\\core-1.12.0\\res\\values-v16\\values-v16.xml",
+                    "from": {
+                        "startLines": "2",
+                        "startColumns": "4",
+                        "startOffsets": "55",
+                        "endColumns": "65",
+                        "endOffsets": "116"
+                    }
+                },
+                {
+                    "source": "C:\\Users\\juan_\\.gradle\\caches\\9.2.0\\transforms\\d2cec21c3aa627d7d6ab6a84f05d99cc\\workspace\\transformed\\appcompat-1.6.1\\res\\values-v16\\values-v16.xml",
                     "from": {
                         "startLines": "2",
                         "startColumns": "4",
@@ -20,16 +30,6 @@
                         "endLines": "6",
                         "endColumns": "12",
                         "endOffsets": "289"
-                    }
-                },
-                {
-                    "source": "C:\\Users\\juan_\\.gradle\\caches\\9.2.0\\transforms\\2ec9e770a95d0401c78fd1c479811b7b\\workspace\\transformed\\core-1.12.0\\res\\values-v16\\values-v16.xml",
-                    "from": {
-                        "startLines": "2",
-                        "startColumns": "4",
-                        "startOffsets": "55",
-                        "endColumns": "65",
-                        "endOffsets": "116"
                     }
                 }
             ]

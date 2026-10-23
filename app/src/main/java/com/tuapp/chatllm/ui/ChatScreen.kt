@@ -25,7 +25,9 @@ import com.tuapp.chatllm.R
 import com.tuapp.chatllm.data.ChatMessage
 import com.tuapp.chatllm.data.ContextItem
 import com.tuapp.chatllm.data.ContextRepository
-import com.tuapp.chatllm.data.LlmRepository
+import com.tuapp.chatllm.data.CatalogRepository
+import com.tuapp.chatllm.network.SmartFilterRequest
+import com.tuapp.chatllm.data.NetworkResult
 import com.tuapp.chatllm.data.MessageSender
 import com.tuapp.chatllm.data.UserAccount
 import com.tuapp.chatllm.data.UserRole
@@ -37,7 +39,7 @@ fun ChatScreen(
     repository: ContextRepository,
     currentUser: UserAccount?,
     onNavigateToAuth: () -> Unit,
-    llmRepository: LlmRepository = remember { LlmRepository() }
+    catalogRepository: CatalogRepository = remember { CatalogRepository() }
 ) {
     var activeContexts by remember { mutableStateOf<List<ContextItem>>(emptyList()) }
     var userMessageText by remember { mutableStateOf("") }
@@ -359,7 +361,21 @@ fun ChatScreen(
                         isLoading = true
 
                         coroutineScope.launch {
-                            val responseText = llmRepository.generateResponse(prompt, activeContexts)
+                            val result = catalogRepository.applySmartFilter(SmartFilterRequest(query = prompt))
+                            val responseText = when (result) {
+                                is NetworkResult.Success -> {
+                                    val filterMsg = result.data.filterApplied ?: "Búsqueda completada."
+                                    if (result.data.data.isNotEmpty()) {
+                                        val prods = result.data.data.take(3).joinToString("\\n") { "• ${it.name}: $${it.price}" }
+                                        "$filterMsg\\nEncontré estos productos:\\n$prods"
+                                    } else {
+                                        "$filterMsg\\nNo se encontraron productos exactos, pero puedo ayudarte con otra búsqueda."
+                                    }
+                                }
+                                is NetworkResult.Error -> "Error de IA/n8n: ${result.message}"
+                                else -> "Hubo un error de conexión."
+                            }
+
                             val assistantMsg = ChatMessage(sender = MessageSender.ASSISTANT, text = responseText)
                             chatHistory = chatHistory + assistantMsg
                             isLoading = false

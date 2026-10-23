@@ -26,6 +26,8 @@ import com.tuapp.chatllm.data.UserRole
 import com.tuapp.chatllm.ui.AdminScreen
 import com.tuapp.chatllm.ui.AuthScreen
 import com.tuapp.chatllm.ui.ChatScreen
+import com.tuapp.chatllm.ui.ScannerScreen
+import com.tuapp.chatllm.ui.ApiCatalogScreen
 import com.tuapp.chatllm.ui.SplashScreen
 
 class MainActivity : ComponentActivity() {
@@ -102,6 +104,22 @@ fun AppNavigation(repository: ContextRepository) {
                         }
                     )
                     NavigationBarItem(
+                        icon = { Icon(Icons.Default.Send, contentDescription = null) },
+                        label = { Text("Escanear QR") },
+                        selected = currentRoute == "scanner",
+                        onClick = {
+                            if (currentRoute != "scanner") {
+                                navController.navigate("scanner") {
+                                    popUpTo(navController.graph.findStartDestination().id) {
+                                        saveState = true
+                                    }
+                                    launchSingleTop = true
+                                    restoreState = true
+                                }
+                            }
+                        }
+                    )
+                    NavigationBarItem(
                         icon = { Icon(Icons.Default.Person, contentDescription = null) },
                         label = {
                             Text(
@@ -158,6 +176,19 @@ fun AppNavigation(repository: ContextRepository) {
                         }
                     }
                 )
+            }
+            composable("scanner") {
+                ScannerScreen(
+                    onSlugScanned = { slug ->
+                        navController.navigate("catalog/$slug") {
+                            popUpTo("scanner") { inclusive = true }
+                        }
+                    }
+                )
+            }
+            composable("catalog/{slug}") { backStackEntry ->
+                val slug = backStackEntry.arguments?.getString("slug") ?: ""
+                ApiCatalogScreen(slug = slug)
             }
             composable("account") {
                 val user = currentUser
