@@ -25,6 +25,7 @@ drawable ic_launcher_foreground
 drawable ic_splash_icon
 mipmap ic_launcher
 mipmap ic_launcher_round
+raw robot_thinking
 string admin_active_switch
 string admin_add_category
 string admin_add_content

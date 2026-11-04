@@ -1,5 +1,6 @@
 package com.tuapp.chatllm.ui
 
+import android.widget.Toast
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
@@ -10,6 +11,8 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Delete
 import androidx.compose.material.icons.filled.Lock
+import androidx.compose.material.icons.filled.Phone
+import androidx.compose.material.icons.filled.PlayArrow
 import androidx.compose.material.icons.filled.Send
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
@@ -21,13 +24,20 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.platform.LocalContext
 import com.tuapp.chatllm.R
 import com.tuapp.chatllm.data.ChatMessage
 import com.tuapp.chatllm.data.ContextItem
 import com.tuapp.chatllm.data.ContextRepository
 import com.tuapp.chatllm.data.LlmRepository
 import com.tuapp.chatllm.network.RecommendedProduct
-import com.tuapp.chatllm.data.NetworkResult
+import com.airbnb.lottie.compose.*
+import android.content.Intent
+import android.speech.RecognizerIntent
+import android.speech.tts.TextToSpeech
+import androidx.activity.compose.rememberLauncherForActivityResult
+import androidx.activity.result.contract.ActivityResultContracts
+import java.util.Locale
 import com.tuapp.chatllm.data.MessageSender
 import com.tuapp.chatllm.data.UserAccount
 import com.tuapp.chatllm.data.UserRole
@@ -48,6 +58,30 @@ fun ChatScreen(
 
     val coroutineScope = rememberCoroutineScope()
     val listState = rememberLazyListState()
+    val context = LocalContext.current
+
+    // Configuración de TTS (Text to Speech)
+    var tts: TextToSpeech? by remember { mutableStateOf(null) }
+    DisposableEffect(context) {
+        tts = TextToSpeech(context) { status ->
+            if (status == TextToSpeech.SUCCESS) {
+                tts?.language = Locale("es", "MX") // Español de México o genérico
+            }
+        }
+        onDispose { tts?.shutdown() }
+    }
+
+    // Configuración de Reconocimiento de Voz (STT)
+    val speechRecognizerLauncher = rememberLauncherForActivityResult(
+        contract = ActivityResultContracts.StartActivityForResult()
+    ) { result ->
+        if (result.resultCode == android.app.Activity.RESULT_OK) {
+            val spokenText = result.data?.getStringArrayListExtra(RecognizerIntent.EXTRA_RESULTS)?.firstOrNull()
+            if (!spokenText.isNullOrBlank()) {
+                userMessageText = spokenText
+            }
+        }
+    }
 
     val quickSuggestions = listOf(
         "¿Cuáles son los productos y promociones disponibles?",
@@ -317,16 +351,21 @@ fun ChatScreen(
 
                 if (isLoading) {
                     item {
+                        val composition by rememberLottieComposition(LottieCompositionSpec.RawRes(R.raw.robot_thinking))
+                        val progress by animateLottieCompositionAsState(
+                            composition,
+                            iterations = LottieConstants.IterateForever
+                        )
                         Box(
                             modifier = Modifier
                                 .fillMaxWidth()
                                 .padding(8.dp),
                             contentAlignment = Alignment.CenterStart
                         ) {
-                            CircularProgressIndicator(
-                                modifier = Modifier.size(24.dp),
-                                strokeWidth = 2.dp,
-                                color = MaterialTheme.colorScheme.primary
+                            LottieAnimation(
+                                composition = composition,
+                                progress = { progress },
+                                modifier = Modifier.size(60.dp)
                             )
                         }
                     }
@@ -339,6 +378,28 @@ fun ChatScreen(
                 modifier = Modifier.fillMaxWidth(),
                 verticalAlignment = Alignment.CenterVertically
             ) {
+                IconButton(
+                    onClick = {
+                        val intent = Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH).apply {
+                            putExtra(RecognizerIntent.EXTRA_LANGUAGE_MODEL, RecognizerIntent.LANGUAGE_MODEL_FREE_FORM)
+                            putExtra(RecognizerIntent.EXTRA_LANGUAGE, Locale.getDefault())
+                            putExtra(RecognizerIntent.EXTRA_PROMPT, "Habla para enviar tu mensaje")
+                        }
+                        try {
+                            speechRecognizerLauncher.launch(intent)
+                        } catch (e: Exception) {
+                            Toast.makeText(context, "Tu dispositivo no soporta dictado por voz", Toast.LENGTH_SHORT).show()
+                        }
+                    },
+                    modifier = Modifier.padding(end = 4.dp)
+                ) {
+                    Icon(
+                        imageVector = Icons.Default.Phone,
+                        contentDescription = "Dictar por Voz",
+                        tint = MaterialTheme.colorScheme.primary
+                    )
+                }
+
                 OutlinedTextField(
                     value = userMessageText,
                     onValueChange = { userMessageText = it },
@@ -375,6 +436,11 @@ fun ChatScreen(
                             isLoading = false
 
                             listState.animateScrollToItem(chatHistory.size - 1)
+                            
+                            // 🔊 Hablar la respuesta!
+                            if (responseText.isNotBlank()) {
+                                tts?.speak(responseText, TextToSpeech.QUEUE_FLUSH, null, "TTS_ID")
+                            }
                         }
                     },
                     modifier = Modifier
@@ -440,6 +506,35 @@ fun ChatMessageBubble(message: ChatMessage) {
                         text = message.text,
                         style = MaterialTheme.typography.bodyMedium,
                         color = textColor
+                    )
+                }
+            }
+
+            // Botón extra TTS solo para mensajes del Asistente
+            if (!isUser && message.text.isNotBlank()) {
+                val context = LocalContext.current
+                var ttsBubble: TextToSpeech? by remember { mutableStateOf(null) }
+                
+                DisposableEffect(context) {
+                    ttsBubble = TextToSpeech(context) { status ->
+                        if (status == TextToSpeech.SUCCESS) {
+                            ttsBubble?.language = Locale("es", "MX")
+                        }
+                    }
+                    onDispose { ttsBubble?.shutdown() }
+                }
+
+                IconButton(
+                    onClick = {
+                        ttsBubble?.speak(message.text, TextToSpeech.QUEUE_FLUSH, null, "TTS_BUBBLE")
+                    },
+                    modifier = Modifier.size(32.dp).padding(top = 4.dp)
+                ) {
+                    Icon(
+                        imageVector = Icons.Default.PlayArrow,
+                        contentDescription = "Escuchar mensaje",
+                        tint = MaterialTheme.colorScheme.primary,
+                        modifier = Modifier.size(16.dp)
                     )
                 }
             }

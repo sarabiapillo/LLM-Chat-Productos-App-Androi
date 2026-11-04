@@ -8,12 +8,16 @@
         "source": "com.tuapp.chatllm.app-main-7:/drawable/ic_splash_icon.xml"
     },
     {
+        "merged": "com.tuapp.chatllm.app-debug-5:/xml_data_extraction_rules.xml.flat",
+        "source": "com.tuapp.chatllm.app-main-7:/xml/data_extraction_rules.xml"
+    },
+    {
         "merged": "com.tuapp.chatllm.app-debug-5:/mipmap_ic_launcher.xml.flat",
         "source": "com.tuapp.chatllm.app-main-7:/mipmap/ic_launcher.xml"
     },
     {
-        "merged": "com.tuapp.chatllm.app-debug-5:/xml_data_extraction_rules.xml.flat",
-        "source": "com.tuapp.chatllm.app-main-7:/xml/data_extraction_rules.xml"
+        "merged": "com.tuapp.chatllm.app-debug-5:/raw_robot_thinking.json.flat",
+        "source": "com.tuapp.chatllm.app-main-7:/raw/robot_thinking.json"
     },
     {
         "merged": "com.tuapp.chatllm.app-debug-5:/xml_backup_rules.xml.flat",
@@ -32,11 +36,11 @@
         "source": "com.tuapp.chatllm.app-main-7:/drawable/ic_app_logo.xml"
     },
     {
-        "merged": "com.tuapp.chatllm.app-debug-5:/mipmap-anydpi-v26_ic_launcher_round.xml.flat",
-        "source": "com.tuapp.chatllm.app-main-7:/mipmap-anydpi-v26/ic_launcher_round.xml"
-    },
-    {
         "merged": "com.tuapp.chatllm.app-debug-5:/drawable_ic_launcher_background.xml.flat",
         "source": "com.tuapp.chatllm.app-main-7:/drawable/ic_launcher_background.xml"
+    },
+    {
+        "merged": "com.tuapp.chatllm.app-debug-5:/mipmap-anydpi-v26_ic_launcher_round.xml.flat",
+        "source": "com.tuapp.chatllm.app-main-7:/mipmap-anydpi-v26/ic_launcher_round.xml"
     }
 ]

@@ -84,4 +84,7 @@ dependencies {
 
     // Guava (Requerido por CameraX)
     implementation("com.google.guava:guava:31.1-android")
+
+    // Animaciones Lottie
+    implementation("com.airbnb.android:lottie-compose:6.4.0")
 }
