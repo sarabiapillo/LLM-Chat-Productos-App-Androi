@@ -25,8 +25,8 @@ import com.tuapp.chatllm.R
 import com.tuapp.chatllm.data.ChatMessage
 import com.tuapp.chatllm.data.ContextItem
 import com.tuapp.chatllm.data.ContextRepository
-import com.tuapp.chatllm.data.CatalogRepository
-import com.tuapp.chatllm.network.SmartFilterRequest
+import com.tuapp.chatllm.data.LlmRepository
+import com.tuapp.chatllm.network.RecommendedProduct
 import com.tuapp.chatllm.data.NetworkResult
 import com.tuapp.chatllm.data.MessageSender
 import com.tuapp.chatllm.data.UserAccount
@@ -39,7 +39,7 @@ fun ChatScreen(
     repository: ContextRepository,
     currentUser: UserAccount?,
     onNavigateToAuth: () -> Unit,
-    catalogRepository: CatalogRepository = remember { CatalogRepository() }
+    llmRepository: LlmRepository = remember { LlmRepository() }
 ) {
     var activeContexts by remember { mutableStateOf<List<ContextItem>>(emptyList()) }
     var userMessageText by remember { mutableStateOf("") }
@@ -361,22 +361,16 @@ fun ChatScreen(
                         isLoading = true
 
                         coroutineScope.launch {
-                            val result = catalogRepository.applySmartFilter(SmartFilterRequest(query = prompt))
-                            val responseText = when (result) {
-                                is NetworkResult.Success -> {
-                                    val filterMsg = result.data.filterApplied ?: "Búsqueda completada."
-                                    if (result.data.data.isNotEmpty()) {
-                                        val prods = result.data.data.take(3).joinToString("\\n") { "• ${it.name}: $${it.price}" }
-                                        "$filterMsg\\nEncontré estos productos:\\n$prods"
-                                    } else {
-                                        "$filterMsg\\nNo se encontraron productos exactos, pero puedo ayudarte con otra búsqueda."
-                                    }
-                                }
-                                is NetworkResult.Error -> "Error de IA/n8n: ${result.message}"
-                                else -> "Hubo un error de conexión."
-                            }
-
-                            val assistantMsg = ChatMessage(sender = MessageSender.ASSISTANT, text = responseText)
+                            val result = llmRepository.generateResponse(prompt, currentUser)
+                            val responseText = result.first
+                            val recommendedProducts = result.second
+                            
+                            val assistantMsg = ChatMessage(
+                                sender = MessageSender.ASSISTANT, 
+                                text = responseText,
+                                recommendedProducts = recommendedProducts
+                            )
+                            
                             chatHistory = chatHistory + assistantMsg
                             isLoading = false
 
@@ -424,28 +418,81 @@ fun ChatMessageBubble(message: ChatMessage) {
         modifier = Modifier.fillMaxWidth(),
         contentAlignment = alignment
     ) {
-        Surface(
-            shape = RoundedCornerShape(
-                topStart = 16.dp,
-                topEnd = 16.dp,
-                bottomStart = if (isUser) 16.dp else 4.dp,
-                bottomEnd = if (isUser) 4.dp else 16.dp
-            ),
-            color = containerColor,
-            modifier = Modifier.widthIn(max = 280.dp)
-        ) {
-            Column(modifier = Modifier.padding(12.dp)) {
-                Text(
-                    text = if (isUser) "Tú" else "Asistente de Productos IA",
-                    style = MaterialTheme.typography.labelSmall,
-                    color = textColor.copy(alpha = 0.7f)
-                )
-                Spacer(modifier = Modifier.height(2.dp))
-                Text(
-                    text = message.text,
-                    style = MaterialTheme.typography.bodyMedium,
-                    color = textColor
-                )
+        Column(horizontalAlignment = if (isUser) Alignment.End else Alignment.Start) {
+            Surface(
+                shape = RoundedCornerShape(
+                    topStart = 16.dp,
+                    topEnd = 16.dp,
+                    bottomStart = if (isUser) 16.dp else 4.dp,
+                    bottomEnd = if (isUser) 4.dp else 16.dp
+                ),
+                color = containerColor,
+                modifier = Modifier.widthIn(max = 300.dp)
+            ) {
+                Column(modifier = Modifier.padding(12.dp)) {
+                    Text(
+                        text = if (isUser) "Tú" else "Asistente Inteligente",
+                        style = MaterialTheme.typography.labelSmall,
+                        color = textColor.copy(alpha = 0.7f)
+                    )
+                    Spacer(modifier = Modifier.height(2.dp))
+                    Text(
+                        text = message.text,
+                        style = MaterialTheme.typography.bodyMedium,
+                        color = textColor
+                    )
+                }
+            }
+
+            if (message.recommendedProducts != null && message.recommendedProducts.isNotEmpty()) {
+                Spacer(modifier = Modifier.height(8.dp))
+                LazyRow(
+                    horizontalArrangement = Arrangement.spacedBy(8.dp),
+                    modifier = Modifier.widthIn(max = 320.dp)
+                ) {
+                    items(message.recommendedProducts) { product ->
+                        ElevatedCard(
+                            modifier = Modifier.width(180.dp),
+                            shape = RoundedCornerShape(12.dp)
+                        ) {
+                            Column(modifier = Modifier.padding(10.dp)) {
+                                if (product.tieneOferta) {
+                                    Surface(
+                                        shape = RoundedCornerShape(4.dp),
+                                        color = colorResource(R.color.gold_accent),
+                                        modifier = Modifier.padding(bottom = 6.dp)
+                                    ) {
+                                        Text(
+                                            text = "🔥 ${product.descuento} OFF",
+                                            style = MaterialTheme.typography.labelSmall,
+                                            fontWeight = FontWeight.Bold,
+                                            color = colorResource(R.color.black),
+                                            modifier = Modifier.padding(horizontal = 6.dp, vertical = 2.dp)
+                                        )
+                                    }
+                                }
+                                Text(
+                                    text = product.giro.uppercase(),
+                                    style = MaterialTheme.typography.labelSmall,
+                                    color = MaterialTheme.colorScheme.primary
+                                )
+                                Spacer(modifier = Modifier.height(2.dp))
+                                Text(
+                                    text = product.nombre,
+                                    style = MaterialTheme.typography.titleSmall,
+                                    fontWeight = FontWeight.Bold,
+                                    maxLines = 2
+                                )
+                                Spacer(modifier = Modifier.height(4.dp))
+                                Text(
+                                    text = "$${product.precioOferta ?: product.precioRegular}",
+                                    style = MaterialTheme.typography.labelLarge,
+                                    color = MaterialTheme.colorScheme.onSurface
+                                )
+                            }
+                        }
+                    }
+                }
             }
         }
     }

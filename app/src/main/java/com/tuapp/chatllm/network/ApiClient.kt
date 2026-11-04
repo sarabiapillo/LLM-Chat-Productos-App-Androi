@@ -9,13 +9,16 @@ import retrofit2.converter.gson.GsonConverterFactory
 import java.util.concurrent.TimeUnit
 
 object ApiClient {
-    // Dominio Oficial HTTPS de SoftwareCadenas configurado en el MEGA PROMPT
     private const val BASE_URL = "https://qrchatai.softwarecadenas.com.mx/"
 
     private var authToken: String? = null
 
     fun setAuthToken(token: String?) {
         authToken = token
+    }
+    
+    fun getAuthToken(): String? {
+        return authToken
     }
 
     private val authInterceptor = Interceptor { chain ->
@@ -30,11 +33,13 @@ object ApiClient {
         level = HttpLoggingInterceptor.Level.BODY
     }
 
+    // El timeout se amplía drásticamente para soportar las consultas al LLM a través de n8n
     private val okHttpClient = OkHttpClient.Builder()
         .addInterceptor(authInterceptor)
         .addInterceptor(loggingInterceptor)
         .connectTimeout(30, TimeUnit.SECONDS)
-        .readTimeout(30, TimeUnit.SECONDS)
+        .readTimeout(60, TimeUnit.SECONDS) // 60 segundos de lectura
+        .writeTimeout(30, TimeUnit.SECONDS)
         .build()
 
     private val gson = GsonBuilder()

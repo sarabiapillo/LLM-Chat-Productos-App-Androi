@@ -1,28 +1,48 @@
 package com.tuapp.chatllm.data
 
-import kotlinx.coroutines.delay
+import com.tuapp.chatllm.network.ApiClient
+import com.tuapp.chatllm.network.ChatCustomerRequest
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.withContext
 
 class LlmRepository {
+    private val api = ApiClient.apiService
 
     suspend fun generateResponse(
-        userPrompt: String,
-        activeContexts: List<ContextItem>
-    ): String {
-        delay(1200)
+        prompt: String,
+        currentUser: UserAccount?
+    ): Pair<String, List<com.tuapp.chatllm.network.RecommendedProduct>?> {
+        return withContext(Dispatchers.IO) {
+            try {
+                // 1. Preparar el token (si el usuario está logueado)
+                val token = ApiClient.getAuthToken()?.let { "Bearer $it" }
 
-        val contextSummary = if (activeContexts.isNotEmpty()) {
-            activeContexts.joinToString("\n") { "• [${it.title}]: ${it.content}" }
-        } else {
-            "Ningún contexto de instrucción activo."
-        }
+                // 2. Preparar el request para n8n
+                val request = ChatCustomerRequest(
+                    question = prompt,
+                    clienteNombre = currentUser?.email?.substringBefore("@") ?: "Invitado"
+                )
 
-        return buildString {
-            append("Hola. He recibido tu consulta:\n\"")
-            append(userPrompt.trim())
-            append("\"\n\n")
-            append("Aplicando las siguientes reglas de contexto activo:\n")
-            append(contextSummary)
-            append("\n\nProcesado con éxito. ¡Puedo ayudarte con más detalles sobre tu desarrollo en Android o arquitectura de software!")
+                // 3. Ejecutar la llamada a la IA de Laravel/N8N
+                val response = api.askAssistant(token, request)
+
+                if (response.isSuccessful && response.body() != null) {
+                    val chatResponse = response.body()!!
+                    
+                    if (chatResponse.success) {
+                        return@withContext Pair(chatResponse.answer, chatResponse.recommendedProducts)
+                    } else {
+                        return@withContext Pair("Lo siento, la IA no pudo procesar tu solicitud: ${chatResponse.status}", null)
+                    }
+                } else if (response.code() == 403) {
+                    return@withContext Pair("Acceso denegado: Eres administrador y este canal es solo para clientes. Por favor usa la plataforma web.", null)
+                } else {
+                    return@withContext Pair("Error en la conexión con la IA (Código ${response.code()})", null)
+                }
+
+            } catch (e: Exception) {
+                Pair("Ocurrió un error al contactar al asistente virtual: ${e.message}", null)
+            }
         }
     }
 }

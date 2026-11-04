@@ -9,7 +9,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.tuapp.chatllm.data.NetworkResult
-import com.tuapp.chatllm.network.ProductDto
+import com.tuapp.chatllm.network.ProductItem
 import com.tuapp.chatllm.viewmodel.CatalogViewModel
 
 @Composable
@@ -58,7 +58,7 @@ fun ApiCatalogScreen(
 }
 
 @Composable
-fun ProductCard(product: ProductDto) {
+fun ProductCard(product: com.tuapp.chatllm.network.ProductItem) {
     Card(
         modifier = Modifier
             .fillMaxWidth()
@@ -67,12 +67,12 @@ fun ProductCard(product: ProductDto) {
     ) {
         Column(modifier = Modifier.padding(12.dp)) {
             Text(product.name, style = MaterialTheme.typography.bodyLarge)
-            Text("$${product.price}", style = MaterialTheme.typography.bodyMedium, color = MaterialTheme.colorScheme.primary)
-            if (!product.isActive) {
-                Text("Agotado", color = MaterialTheme.colorScheme.error, style = MaterialTheme.typography.labelSmall)
+            Text("$${product.finalPrice}", style = MaterialTheme.typography.bodyMedium, color = MaterialTheme.colorScheme.primary)
+            if (product.hasOffer) {
+                Text("Oferta! $${product.offerPrice}", color = MaterialTheme.colorScheme.secondary, style = MaterialTheme.typography.labelSmall)
             }
-            product.category?.let {
-                Text("Categoría: ${it.name}", style = MaterialTheme.typography.bodySmall, color = MaterialTheme.colorScheme.outline)
+            if (product.stock == 0) {
+                Text("Agotado", color = MaterialTheme.colorScheme.error, style = MaterialTheme.typography.labelSmall)
             }
         }
     }

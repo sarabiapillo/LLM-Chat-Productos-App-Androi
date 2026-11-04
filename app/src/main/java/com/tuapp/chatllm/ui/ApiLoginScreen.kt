@@ -61,7 +61,7 @@ fun ApiLoginScreen(
         when (loginState) {
             is NetworkResult.Loading -> CircularProgressIndicator()
             is NetworkResult.Success -> {
-                val token = (loginState as NetworkResult.Success).data.accessToken
+                val token = (loginState as NetworkResult.Success).data.accessToken ?: ""
                 LaunchedEffect(Unit) {
                     onLoginSuccess(token)
                 }
