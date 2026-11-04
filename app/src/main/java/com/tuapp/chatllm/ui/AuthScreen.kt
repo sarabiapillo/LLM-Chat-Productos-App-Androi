@@ -24,6 +24,7 @@ import androidx.compose.foundation.Image
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.PasswordVisualTransformation
@@ -200,17 +201,11 @@ fun AuthScreen(
                         modifier = Modifier.fillMaxWidth(),
                         enabled = !isLoading,
                         colors = OutlinedTextFieldDefaults.colors(
-                            focusedContainerColor = Color(0xFFFFFFFF), // Blanco puro garantizado
-                            unfocusedContainerColor = Color(0xFFFFFFFF), // Blanco puro garantizado
-                            focusedTextColor = Color(0xFF0D47A1), // Texto Azul Oscuro
-                            unfocusedTextColor = Color(0xFF0D47A1), // Texto Azul Oscuro
-                            cursorColor = Color(0xFFFFC107), // Cursor Dorado
-                            focusedBorderColor = Color(0xFFFFC107), // Borde Dorado al enfocar
-                            unfocusedBorderColor = Color(0xFF1976D2), // Borde Azul al desenfocar
-                            focusedLabelColor = Color(0xFF0D47A1), // Etiqueta Azul
-                            unfocusedLabelColor = Color(0xFF1976D2), // Etiqueta Azul clara
-                            focusedLeadingIconColor = Color(0xFFFFC107), // Icono Dorado
-                            unfocusedLeadingIconColor = Color(0xFF1976D2) // Icono Azul
+                            focusedContainerColor = MaterialTheme.colorScheme.background,
+                            unfocusedContainerColor = MaterialTheme.colorScheme.background,
+                            focusedTextColor = MaterialTheme.colorScheme.onSurface,
+                            unfocusedTextColor = MaterialTheme.colorScheme.onSurface,
+                            disabledTextColor = MaterialTheme.colorScheme.onSurfaceVariant
                         )
                     )
 
@@ -325,17 +320,11 @@ fun AuthScreen(
                                 modifier = Modifier.fillMaxWidth(),
                                 enabled = !isLoading,
                                 colors = OutlinedTextFieldDefaults.colors(
-                                    focusedContainerColor = Color(0xFFFFFFFF),
-                                    unfocusedContainerColor = Color(0xFFFFFFFF),
-                                    focusedTextColor = Color(0xFF0D47A1),
-                                    unfocusedTextColor = Color(0xFF0D47A1),
-                                    cursorColor = Color(0xFFFFC107),
-                                    focusedBorderColor = Color(0xFFFFC107),
-                                    unfocusedBorderColor = Color(0xFF1976D2),
-                                    focusedLabelColor = Color(0xFF0D47A1),
-                                    unfocusedLabelColor = Color(0xFF1976D2),
-                                    focusedLeadingIconColor = Color(0xFFFFC107),
-                                    unfocusedLeadingIconColor = Color(0xFF1976D2)
+                                    focusedContainerColor = MaterialTheme.colorScheme.background,
+                                    unfocusedContainerColor = MaterialTheme.colorScheme.background,
+                                    focusedTextColor = MaterialTheme.colorScheme.onSurface,
+                                    unfocusedTextColor = MaterialTheme.colorScheme.onSurface,
+                                    disabledTextColor = MaterialTheme.colorScheme.onSurfaceVariant
                                 )
                             )
                             Spacer(modifier = Modifier.height(12.dp))
@@ -355,17 +344,11 @@ fun AuthScreen(
                         modifier = Modifier.fillMaxWidth(),
                         enabled = !isLoading,
                         colors = OutlinedTextFieldDefaults.colors(
-                            focusedContainerColor = Color(0xFFFFFFFF), // Blanco puro garantizado
-                            unfocusedContainerColor = Color(0xFFFFFFFF), // Blanco puro garantizado
-                            focusedTextColor = Color(0xFF0D47A1), // Texto Azul Oscuro
-                            unfocusedTextColor = Color(0xFF0D47A1), // Texto Azul Oscuro
-                            cursorColor = Color(0xFFFFC107), // Cursor Dorado
-                            focusedBorderColor = Color(0xFFFFC107), // Borde Dorado al enfocar
-                            unfocusedBorderColor = Color(0xFF1976D2), // Borde Azul al desenfocar
-                            focusedLabelColor = Color(0xFF0D47A1), // Etiqueta Azul
-                            unfocusedLabelColor = Color(0xFF1976D2), // Etiqueta Azul clara
-                            focusedLeadingIconColor = Color(0xFFFFC107), // Icono Dorado
-                            unfocusedLeadingIconColor = Color(0xFF1976D2) // Icono Azul
+                            focusedContainerColor = MaterialTheme.colorScheme.background,
+                            unfocusedContainerColor = MaterialTheme.colorScheme.background,
+                            focusedTextColor = MaterialTheme.colorScheme.onSurface,
+                            unfocusedTextColor = MaterialTheme.colorScheme.onSurface,
+                            disabledTextColor = MaterialTheme.colorScheme.onSurfaceVariant
                         )
                     )
 
@@ -386,17 +369,11 @@ fun AuthScreen(
                         modifier = Modifier.fillMaxWidth(),
                         enabled = !isLoading,
                         colors = OutlinedTextFieldDefaults.colors(
-                            focusedContainerColor = Color(0xFFFFFFFF), // Blanco puro garantizado
-                            unfocusedContainerColor = Color(0xFFFFFFFF), // Blanco puro garantizado
-                            focusedTextColor = Color(0xFF0D47A1), // Texto Azul Oscuro
-                            unfocusedTextColor = Color(0xFF0D47A1), // Texto Azul Oscuro
-                            cursorColor = Color(0xFFFFC107), // Cursor Dorado
-                            focusedBorderColor = Color(0xFFFFC107), // Borde Dorado al enfocar
-                            unfocusedBorderColor = Color(0xFF1976D2), // Borde Azul al desenfocar
-                            focusedLabelColor = Color(0xFF0D47A1), // Etiqueta Azul
-                            unfocusedLabelColor = Color(0xFF1976D2), // Etiqueta Azul clara
-                            focusedLeadingIconColor = Color(0xFFFFC107), // Icono Dorado
-                            unfocusedLeadingIconColor = Color(0xFF1976D2) // Icono Azul
+                            focusedContainerColor = MaterialTheme.colorScheme.background,
+                            unfocusedContainerColor = MaterialTheme.colorScheme.background,
+                            focusedTextColor = MaterialTheme.colorScheme.onSurface,
+                            unfocusedTextColor = MaterialTheme.colorScheme.onSurface,
+                            disabledTextColor = MaterialTheme.colorScheme.onSurfaceVariant
                         )
                     )
 
@@ -423,17 +400,11 @@ fun AuthScreen(
                                 modifier = Modifier.fillMaxWidth(),
                                 enabled = !isLoading,
                                 colors = OutlinedTextFieldDefaults.colors(
-                                    focusedContainerColor = Color(0xFFFFFFFF),
-                                    unfocusedContainerColor = Color(0xFFFFFFFF),
-                                    focusedTextColor = Color(0xFF0D47A1),
-                                    unfocusedTextColor = Color(0xFF0D47A1),
-                                    cursorColor = Color(0xFFFFC107),
-                                    focusedBorderColor = Color(0xFFFFC107),
-                                    unfocusedBorderColor = Color(0xFF1976D2),
-                                    focusedLabelColor = Color(0xFF0D47A1),
-                                    unfocusedLabelColor = Color(0xFF1976D2),
-                                    focusedLeadingIconColor = Color(0xFFFFC107),
-                                    unfocusedLeadingIconColor = Color(0xFF1976D2)
+                                    focusedContainerColor = MaterialTheme.colorScheme.background,
+                                    unfocusedContainerColor = MaterialTheme.colorScheme.background,
+                                    focusedTextColor = MaterialTheme.colorScheme.onSurface,
+                                    unfocusedTextColor = MaterialTheme.colorScheme.onSurface,
+                                    disabledTextColor = MaterialTheme.colorScheme.onSurfaceVariant
                                 )
                             )
                         }
