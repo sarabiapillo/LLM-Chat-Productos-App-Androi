@@ -10,10 +10,11 @@ data class LoginRequest(
 )
 
 data class LoginResponse(
-    @SerializedName("status") val status: String,
-    @SerializedName("message") val message: String,
+    @SerializedName("status") val status: String?,
+    @SerializedName("message") val message: String?,
     @SerializedName("access_token") val accessToken: String?,
     @SerializedName("token_type") val tokenType: String?,
+    @SerializedName("expires_at") val expiresAt: String?,
     @SerializedName("role") val role: String?,
     @SerializedName("user") val user: UserDto?
 )

@@ -70,7 +70,8 @@ fun AuthScreen(
     LaunchedEffect(loginState) {
         when (val state = loginState) {
             is NetworkResult.Success -> {
-                val role = if (state.data.role?.lowercase() == "admin") UserRole.ADMIN else UserRole.CLIENT
+                val roleStr = state.data.role ?: state.data.user?.role ?: "cliente"
+                val role = if (roleStr.lowercase() == "admin") UserRole.ADMIN else UserRole.CLIENT
                 onAuthSuccess(UserAccount(email, role))
                 viewModel.resetAuthStates()
             }

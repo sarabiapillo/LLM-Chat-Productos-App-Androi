@@ -20,7 +20,10 @@ class AuthRepository {
                 val response = api.login(request)
                 if (response.isSuccessful && response.body() != null) {
                     val loginResponse = response.body()!!
-                    ApiClient.setAuthToken(loginResponse.accessToken)
+                    val token = loginResponse.accessToken
+                    if (!token.isNullOrEmpty()) {
+                        ApiClient.setAuthToken(token)
+                    }
                     NetworkResult.Success(loginResponse)
                 } else {
                     NetworkResult.Error("Error de credenciales: ${response.message()}", response.code())
