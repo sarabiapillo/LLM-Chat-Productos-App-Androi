@@ -138,7 +138,8 @@ fun AuthScreen(
     Box(
         modifier = Modifier
             .fillMaxSize()
-            .padding(20.dp),
+            .padding(20.dp)
+            .imePadding(),
         contentAlignment = Alignment.Center
     ) {
         Card(
@@ -202,11 +203,17 @@ fun AuthScreen(
                         modifier = Modifier.fillMaxWidth(),
                         enabled = !isLoading,
                         colors = OutlinedTextFieldDefaults.colors(
-                            focusedContainerColor = MaterialTheme.colorScheme.background,
-                            unfocusedContainerColor = MaterialTheme.colorScheme.background,
-                            focusedTextColor = MaterialTheme.colorScheme.onSurface,
-                            unfocusedTextColor = MaterialTheme.colorScheme.onSurface,
-                            disabledTextColor = MaterialTheme.colorScheme.onSurfaceVariant
+                            focusedContainerColor = Color(0xFFFFFFFF),
+                            unfocusedContainerColor = Color(0xFFFFFFFF),
+                            focusedTextColor = Color(0xFF0D47A1),
+                            unfocusedTextColor = Color(0xFF0D47A1),
+                            cursorColor = Color(0xFFFFC107),
+                            focusedBorderColor = Color(0xFFFFC107),
+                            unfocusedBorderColor = Color(0xFF1976D2),
+                            focusedLabelColor = Color(0xFF0D47A1),
+                            unfocusedLabelColor = Color(0xFF1976D2),
+                            focusedLeadingIconColor = Color(0xFFFFC107),
+                            unfocusedLeadingIconColor = Color(0xFF1976D2)
                         )
                     )
 
@@ -321,11 +328,17 @@ fun AuthScreen(
                                 modifier = Modifier.fillMaxWidth(),
                                 enabled = !isLoading,
                                 colors = OutlinedTextFieldDefaults.colors(
-                                    focusedContainerColor = MaterialTheme.colorScheme.background,
-                                    unfocusedContainerColor = MaterialTheme.colorScheme.background,
-                                    focusedTextColor = MaterialTheme.colorScheme.onSurface,
-                                    unfocusedTextColor = MaterialTheme.colorScheme.onSurface,
-                                    disabledTextColor = MaterialTheme.colorScheme.onSurfaceVariant
+                                    focusedContainerColor = Color(0xFFFFFFFF),
+                                    unfocusedContainerColor = Color(0xFFFFFFFF),
+                                    focusedTextColor = Color(0xFF0D47A1),
+                                    unfocusedTextColor = Color(0xFF0D47A1),
+                                    cursorColor = Color(0xFFFFC107),
+                                    focusedBorderColor = Color(0xFFFFC107),
+                                    unfocusedBorderColor = Color(0xFF1976D2),
+                                    focusedLabelColor = Color(0xFF0D47A1),
+                                    unfocusedLabelColor = Color(0xFF1976D2),
+                                    focusedLeadingIconColor = Color(0xFFFFC107),
+                                    unfocusedLeadingIconColor = Color(0xFF1976D2)
                                 )
                             )
                             Spacer(modifier = Modifier.height(12.dp))
@@ -345,11 +358,17 @@ fun AuthScreen(
                         modifier = Modifier.fillMaxWidth(),
                         enabled = !isLoading,
                         colors = OutlinedTextFieldDefaults.colors(
-                            focusedContainerColor = MaterialTheme.colorScheme.background,
-                            unfocusedContainerColor = MaterialTheme.colorScheme.background,
-                            focusedTextColor = MaterialTheme.colorScheme.onSurface,
-                            unfocusedTextColor = MaterialTheme.colorScheme.onSurface,
-                            disabledTextColor = MaterialTheme.colorScheme.onSurfaceVariant
+                            focusedContainerColor = Color(0xFFFFFFFF),
+                            unfocusedContainerColor = Color(0xFFFFFFFF),
+                            focusedTextColor = Color(0xFF0D47A1),
+                            unfocusedTextColor = Color(0xFF0D47A1),
+                            cursorColor = Color(0xFFFFC107),
+                            focusedBorderColor = Color(0xFFFFC107),
+                            unfocusedBorderColor = Color(0xFF1976D2),
+                            focusedLabelColor = Color(0xFF0D47A1),
+                            unfocusedLabelColor = Color(0xFF1976D2),
+                            focusedLeadingIconColor = Color(0xFFFFC107),
+                            unfocusedLeadingIconColor = Color(0xFF1976D2)
                         )
                     )
 
@@ -370,11 +389,17 @@ fun AuthScreen(
                         modifier = Modifier.fillMaxWidth(),
                         enabled = !isLoading,
                         colors = OutlinedTextFieldDefaults.colors(
-                            focusedContainerColor = MaterialTheme.colorScheme.background,
-                            unfocusedContainerColor = MaterialTheme.colorScheme.background,
-                            focusedTextColor = MaterialTheme.colorScheme.onSurface,
-                            unfocusedTextColor = MaterialTheme.colorScheme.onSurface,
-                            disabledTextColor = MaterialTheme.colorScheme.onSurfaceVariant
+                            focusedContainerColor = Color(0xFFFFFFFF),
+                            unfocusedContainerColor = Color(0xFFFFFFFF),
+                            focusedTextColor = Color(0xFF0D47A1),
+                            unfocusedTextColor = Color(0xFF0D47A1),
+                            cursorColor = Color(0xFFFFC107),
+                            focusedBorderColor = Color(0xFFFFC107),
+                            unfocusedBorderColor = Color(0xFF1976D2),
+                            focusedLabelColor = Color(0xFF0D47A1),
+                            unfocusedLabelColor = Color(0xFF1976D2),
+                            focusedLeadingIconColor = Color(0xFFFFC107),
+                            unfocusedLeadingIconColor = Color(0xFF1976D2)
                         )
                     )
 
@@ -401,11 +426,17 @@ fun AuthScreen(
                                 modifier = Modifier.fillMaxWidth(),
                                 enabled = !isLoading,
                                 colors = OutlinedTextFieldDefaults.colors(
-                                    focusedContainerColor = MaterialTheme.colorScheme.background,
-                                    unfocusedContainerColor = MaterialTheme.colorScheme.background,
-                                    focusedTextColor = MaterialTheme.colorScheme.onSurface,
-                                    unfocusedTextColor = MaterialTheme.colorScheme.onSurface,
-                                    disabledTextColor = MaterialTheme.colorScheme.onSurfaceVariant
+                                    focusedContainerColor = Color(0xFFFFFFFF),
+                                    unfocusedContainerColor = Color(0xFFFFFFFF),
+                                    focusedTextColor = Color(0xFF0D47A1),
+                                    unfocusedTextColor = Color(0xFF0D47A1),
+                                    cursorColor = Color(0xFFFFC107),
+                                    focusedBorderColor = Color(0xFFFFC107),
+                                    unfocusedBorderColor = Color(0xFF1976D2),
+                                    focusedLabelColor = Color(0xFF0D47A1),
+                                    unfocusedLabelColor = Color(0xFF1976D2),
+                                    focusedLeadingIconColor = Color(0xFFFFC107),
+                                    unfocusedLeadingIconColor = Color(0xFF1976D2)
                                 )
                             )
                         }
